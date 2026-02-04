@@ -1,10 +1,11 @@
 from sage.all import *
 
-import params
-import quaternions as qt
-import sos
-import ec
-import hd
+try:
+    from . import params, sos, ec, hd
+    from . import quaternions as qt
+except ImportError:
+    import params, sos, ec, hd
+    import quaternions as qt
 
 def qlapoti(J):
     """

@@ -1,9 +1,15 @@
 from sage.all import pari, inverse_mod
 
-from theta.theta_structures.couple_point import CouplePoint
-from theta.theta_isogenies.product_isogeny import EllipticProductIsogeny
-from theta.theta_isogenies.product_isogeny_sqrt import EllipticProductIsogenySqrt
-import params
+try:
+    from . import params
+    from .theta.theta_structures.couple_point import CouplePoint
+    from .theta.theta_isogenies.product_isogeny import EllipticProductIsogeny
+    from .theta.theta_isogenies.product_isogeny_sqrt import EllipticProductIsogenySqrt
+except ImportError:
+    import params
+    from theta.theta_structures.couple_point import CouplePoint
+    from theta.theta_isogenies.product_isogeny import EllipticProductIsogeny
+    from theta.theta_isogenies.product_isogeny_sqrt import EllipticProductIsogenySqrt
 
 def Dim2Iso(K, n):
     """

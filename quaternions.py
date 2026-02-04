@@ -3,7 +3,10 @@ from sage.all import (
     vector, Zmod, isqrt, ceil, sqrt
 )
 
-import params
+try:
+    from . import params
+except ImportError:
+    import params
 
 def ModularSQRT(n, m):
     """

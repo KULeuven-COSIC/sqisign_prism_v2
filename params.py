@@ -3,8 +3,10 @@ from sage.all import (
         matrix, Zmod, floor, next_prime
 )
 
-import ec
-import constants
+try:
+    from . import ec, constants
+except ImportError:
+    import ec, constants
 
 # Fixed parameters [Sec 4.2, Appendix B]
 

@@ -1,4 +1,7 @@
-import params
+try:
+    from . import params
+except ImportError:
+    import params
 
 def encode_fp(x):
     """

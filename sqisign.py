@@ -12,12 +12,14 @@ logger.addHandler(logger_sh)
 from sage.all import *
 proof.all(False)
 
-import params
-import quaternions as qt
-import qlapoti as qlpt
-import ec
-import misc
-import hd
+try:
+    from . import params, ec, hd, misc
+    from . import quaternions as qt
+    from . import qlapoti as qlpt
+except ImportError:
+    import params, ec, hd, misc
+    import quaternions as qt
+    import qlapoti as qlpt
 
 class SQIsign:
 

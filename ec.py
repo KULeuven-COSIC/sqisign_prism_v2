@@ -2,7 +2,10 @@ from sage.all import (
     pari, Zmod, matrix, ZZ, isqrt, gcd, Integers
 )
 
-import params
+try:
+    from . import params
+except ImportError:
+    import params
 
 def PointCoords(X, P, Q, zeta = None, e = None):
     """
