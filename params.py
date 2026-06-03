@@ -120,21 +120,21 @@ def set_prism_params(lvl):
         p = ZZ(5*2**248 - 1)
         f = ZZ(248)
         a = ZZ(192)
-        rb = ZZ(32)
+        rb = ZZ(256)
         lb = ZZ(248)
 
     elif lvl == 3:
         p = ZZ(65*2**376 - 1)
         f = ZZ(376)
         a = ZZ(256)
-        rb = ZZ(20)
+        rb = ZZ(384)
         lb = ZZ(376)
 
     elif lvl == 5:
         p = ZZ(27*2**500 - 1)
         f = ZZ(500)
         a = ZZ(320)
-        rb = ZZ(40)
+        rb = ZZ(512)
         lb = ZZ(500)
 
     else:
