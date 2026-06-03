@@ -88,8 +88,9 @@ class PRISM:
         M_sk = ec.ChangeOfBasis((phi_P0, phi_Q0), (P_pk, Q_pk))
         assert ec.EvalMatrix(M_sk, (phi_P0, phi_Q0)) == (P_pk, Q_pk)
 
-        pair_pk = pari.ellweilpairing(E_pk, P_pk, Q_pk, 2**params.a)
-        pk = (E_pk, (P_pk, Q_pk), pair_pk)
+        cof = (params.p**2 - 1) // 2**params.a
+        t_pk = pari.elltatepairing(E_pk, P_pk, Q_pk, 2**params.a)**(cof)
+        pk = (E_pk, (P_pk, Q_pk), t_pk)
         sk = (E_pk, I_sk, M_sk)
 
         _t3 = time.time()
@@ -159,7 +160,7 @@ def PRISM_verify(msg, sigma, pk):
     _t0 = time.time()
 
     # (P_pk, Q_pk) are 2^a-torsion
-    E_pk, (P_pk, Q_pk), pair_pk = pk
+    E_pk, (P_pk, Q_pk), t_pk = pk
     E_rsp, pts_rsp, r = sigma
     q, r1 = hash_to_prime(msg, E_pk, r = r)
     assert r1 == r # Hashing gives a prime
@@ -179,11 +180,12 @@ def PRISM_verify(msg, sigma, pk):
 
     P1, Q1 = Phi(P)[0], Phi(Q)[0]
 
-    pair = pari.ellweilpairing(P1.curve(), P1, Q1, 2**params.a)
-    pair_q = pair_pk ** q
-    pair_qinv = pair_q ** (-1)
+    cof = (params.p**2 - 1) // 2**params.a
+    t_1 = pari.elltatepairing(P1.curve(), P1, Q1, 2**params.a)**(cof)
+    t_q = t_pk ** q
+    t_qinv = t_q ** (-1)
 
-    if pair in [pair_q, pair_qinv]:
+    if t_1 in [t_q, t_q**(-1)]:
         _t2 = time.time()
         logger.info(f'- Degree checking done: {_t2-_t1:.3f}s')
         logger.info(f'Verification done: {_t2-_t0:.3f}s')
